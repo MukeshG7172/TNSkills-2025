@@ -8,7 +8,7 @@ import (
     "time"
 )
 
-func AssetHandler(w http.ResponseWriter, r *http.Request) {
+func TripHandler(w http.ResponseWriter, r *http.Request) {
     dm := manager.getTripsData()
 	q := r.URL.Query()
 	cc := []model.Trips
