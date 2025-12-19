@@ -13,7 +13,7 @@ import (
 func getTripsData() {
 	cur_data := []
 	d := "tnskills:1234@tcp(localhost:3306)"
-	f, err := sql.connect("mysql",)
+	f, err := sql.connect("mysql",d)
 	if err != nil {
 		panic(err)
 	}

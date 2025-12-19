@@ -28,6 +28,7 @@ func VehicleManager() *VehicleManager {
 			Cur: loadCSV(),
 		}
 	})
+	checkMaintenance()
 	return instance
 }
 
