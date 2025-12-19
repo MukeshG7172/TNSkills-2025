@@ -13,6 +13,10 @@ func checkMaintenance() {
 
 	for(int i=0;i<vehicle_data.size();i++){
 		cur_vch = vehicle_data[i]
-		if(cur_vch.lastServiceDate - cur_Date > 180) 
+		if(cur_vch.lastServiceDate - cur_Date > 180) {
+			req.push(cur_vch)
+		}
 	}
+
+	return req
 }
