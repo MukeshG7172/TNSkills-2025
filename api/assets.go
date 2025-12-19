@@ -3,16 +3,15 @@ package api
 import (
     "fleet-management-handler/manager"
     "fleet-management-handler/model"
-    "fleet-management-handler/search"
     "encoding/json"
     "net/http"
-    "strings"
     "time"
 )
 
 func AssetHandler(w http.ResponseWriter, r *http.Request) {
     dm := manager.getTripsData()
 	q := r.URL.Query()
+	cc := []model.Trips
 
 	st := q.Get("start")
 	ed := q.Get("end")
@@ -22,7 +21,12 @@ func AssetHandler(w http.ResponseWriter, r *http.Request) {
 			s, _ := time.Parse("2006-01-02", start)
 			e, _ := time.Parse("2006-01-02", end)
 
-			return !a.startDate.Before(s) && !a.endDate.After(e)
+			cc := !a.startDate.Before(s) && !a.endDate.After(e)
+		}
+		if cc {
+			res.append(cc)
 		}
 	}
+	w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(result)
 }

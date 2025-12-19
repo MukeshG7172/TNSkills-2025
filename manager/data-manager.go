@@ -43,7 +43,7 @@ func loadCSV() {
 	r := csv.NewReader(f)
 	r.Read()
 
-	data = []
+	data := []
 
 	for {
 		row, err := r.Read()

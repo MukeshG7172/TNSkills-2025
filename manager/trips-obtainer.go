@@ -11,8 +11,8 @@ import (
 
 //Fetch data
 func getTripsData() {
-	cur_data = []
-	d = "tnskills:1234@tcp(localhost:3306)"
+	cur_data := []
+	d := "tnskills:1234@tcp(localhost:3306)"
 	f, err := sql.connect("mysql",)
 	if err != nil {
 		panic(err)
@@ -26,12 +26,12 @@ func getTripsData() {
 
 
 	while(res.next()){
-		cur := model.Vehicles{
+		cur := model.Trips{
 			tripID: res.tripID
 			vehicleID: res.vehicleID
 			driverName: res.driverName
 			startDate: res.startDate
-			endDate: res.endDate=
+			endDate: res.endDate
 		}
 		res = res.next()
 		cur_data.append(cur)
