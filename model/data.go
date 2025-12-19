@@ -7,6 +7,8 @@ type Vehicles stuct{
 	regNo string `json:"regNo"`
 	vehicle_type string `json:"vehicleType"`
 	lastServiceDate time.Date(2025, 3, 10, 0, 0, 0, 0, time.UTC) `json:"lastServiceDate"`  
+	currentOdometer long `json:"currentOdometer"`
+	lastServiceOdometer long `json"lastServiceOdometer"`
 }
 
 type Trips struct{

@@ -5,6 +5,7 @@ import (
 	"fleet-management-handler/model"
 	"encoding/csv"
 	"strconv"
+	"os"
 )
 
 type Cur struct {
