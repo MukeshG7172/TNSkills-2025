@@ -4,10 +4,7 @@ package manager
 import (
 	"fleet-management-handler/model"
 	"encoding/csv"
-	"os"
 	"strconv"
-	"strings"
-	"sync"
 )
 
 type Cur struct {
@@ -18,20 +15,25 @@ type Cur struct {
 	Trip_Distance long
 }
 
+type VehicleManager struct{
+	loaded []Cur
+}
+
 var inst *VehicleManager
-var once sync.Once
 
 func VehicleManager() *VehicleManager {
 	once.Do(func() {
 		instance = &VehicleManager{
-			vehicles: seedVehicles(),
+			Cur: loadCSV(),
 		}
 	})
 	return instance
 }
 
+
+//Data Cleaning and Insert
 func loadCSV() {
-	f, err := os.Open("C:\Users\Administrator\Documents\tn-skills\TNSkills-2025\driver_logs_raw.csv")
+	f, err := os.Open("driver_logs_raw.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -49,9 +51,15 @@ func loadCSV() {
 		}
 
 		id, _ := strconv.Atoi(row[0])
+		reading, err := strconv.Atoi(row[3])
+		if(err != nil) continue
+		dist, err := strconv.Atoi(row[4])
+		if(err != nil) continue
 		d, _ := row[2]
 
 		new_date = "";
+
+		if(!(d[2] == '-' && d[7] == '-') || !(d[2] == '/' && d[7] == '/')) continue
 
 		if(d[2] == '-' || d[2] == '/'){
 			new_date += d[6]
@@ -65,15 +73,26 @@ func loadCSV() {
 			new_date += d[1]
 			new_date += d[2]
 		}
+		else if(d[4] == '/'){
+			new_date = date
+			new_date[4] = '-'
+			new_date[7] = '-'
+		}
+		else{
+			new_date = date
+		}
+
+		new_date = time.Parse("2006-01-02", new_date)
 
 		pr := Cur{
 			VehicleID: id,
 			Driver: row[1],
 			Date:  new_date,
-			Price:     price,
-			Available: avail,
+			Odometer_Reading: reading,
+			Trip_Distance: dist,
 		}
 
 		data.append(Cur)
 	}
+	return cur
 }
