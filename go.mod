@@ -1,0 +1,3 @@
+module fleet-management-handler
+
+go 1.25.5
