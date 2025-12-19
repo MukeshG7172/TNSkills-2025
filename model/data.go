@@ -18,5 +18,9 @@ type Trips struct{
 }
 
 type Maintenance_Alerts struct{
-	
+	alertID int `json:"alertID"`
+	vehicleID int `json:"vehicleID"`
+	serviceDate time.Date(2025, 3, 10, 0, 0, 0, 0, time.UTC) `json:"serviceDate"`
+	odometerReading long `json:"odometerReading"`
+	notes string `json:"notes"`
 }
